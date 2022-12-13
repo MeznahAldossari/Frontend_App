@@ -1,0 +1,47 @@
+<div class="main-div">
+  <div class="col card-column">
+    <div class="div-card">
+      <div class="card">
+        <div class="row">
+          <div class="col-md-3">
+            <img
+              src="{{ specificOrder?.url }}"
+              class="card-img-top"
+              alt="This is image"
+            />
+          </div>
+
+          <div class="col-md-9 card-content">
+            <div class="product-info">{{ specificOrder?.name }}</div>
+            <div class="product-info">${{ specificOrder?.price }}</div>
+            <div class="product-info">{{ specificOrder?.description }}</div>
+            <div class="product-info">
+              <form
+                *ngIf="specificOrder"
+                (ngSubmit)="SubmitProduct(specificOrder, $event)"
+              >
+                <select class="product-info select-component">
+                  <option
+                    *ngFor="let amount of ['1', '2', '3', '4']"
+                    [ngValue]="amount"
+                    [selected]="amount === '1'"
+                  >
+                    {{ amount }}
+                  </option>
+                </select>
+
+                <input
+                  type="submit"
+                  class="product-info"
+                  id="submit-button"
+                  value="Add"
+                />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a routerLink="/" class="back"><p>Back to Home Page</p></a>
+    </div>
+  </div>
+</div>

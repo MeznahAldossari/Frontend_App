@@ -1,0 +1,19 @@
+header nav {
+    text-align: center;
+    display: block;
+    width: 100%;
+  }
+  nav {
+    background-color: #b97a95;
+  }
+  h3 {
+    margin-bottom: 0px;
+  }
+  .mynav {
+    margin: 0;
+    text-align: center;
+  }
+  a {
+    text-decoration: none;
+    color: black;
+  }

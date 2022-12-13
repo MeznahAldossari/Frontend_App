@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col" *ngFor="let SpecificOrder of allProducts">
+      <div class="card text-center" style="width: 18rem">
+        <img
+          src="{{ SpecificOrder.url }}"
+          class="card-img-top"
+          routerLink="Order_information/{{ SpecificOrder.id }}"
+        />
+
+        <div class="card-body text-center">
+          <div class="product-info">{{ SpecificOrder.name }}</div>
+          <div class="product-info">${{ SpecificOrder.price }}</div>
+          <form (ngSubmit)="SubmitProduct(SpecificOrder, $event)">
+            <select class="product-info select-component">
+              <option
+                *ngFor="let amount of ['1', '2', '3', '4']"
+                [ngValue]="amount"
+                [selected]="amount === '1'"
+              >
+                {{ amount }}
+              </option>
+            </select>
+
+            <input
+              type="submit"
+              class="product-info"
+              id="submit-button"
+              value="Add"
+            />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
