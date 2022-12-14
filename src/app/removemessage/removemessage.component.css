@@ -1,0 +1,15 @@
+.delete-img {
+  width: 20px;
+  height: 20px;
+  float: right;
+  align-items: center;
+}
+
+.delete {
+  float: right;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: white;
+  margin-right: 2px;
+}

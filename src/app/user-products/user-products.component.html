@@ -1,4 +1,5 @@
 <div class="container" #Main *ngIf="CheckValue; else finalPage">
+  <ng-template #Removed> </ng-template>
   <div class="row main-row" *ngIf="cart_items.length; else EmptyCart">
     <div class="col-md-6 card-column">
       <div class="div-card">
@@ -13,6 +14,10 @@
             </div>
 
             <div class="col-md-9 card-content">
+              <app-removemessage
+                (removeFeedback)="Remove_Message($event, product.id)"
+              ></app-removemessage>
+              <!--
               <button (click)="delete_Order(product.id)" class="delete">
                 <img
                   src="../assets/close-button.png"
@@ -20,6 +25,7 @@
                   class="delete-img"
                 />
               </button>
+              -->
               <div class="product-info">{{ product.name }}</div>
               <div class="product-info">${{ product.price }}</div>
               <div class="product-info">
@@ -53,19 +59,37 @@
         <app-user-details (checkout)="checkout($event)"></app-user-details>
         -->
       <div class="form-details">
-        <form #form="ngForm" (ngSubmit)="onSubmit()">
+        <form #form="ngForm" (ngSubmit)="onSubmit()" [formGroup]="TheUser_Form">
           <div class="form-group">
             <label for="User_name">Full Name</label>
             <input
               type="text"
               class="form-control"
               id="User_name"
+              formControlName="myname"
+              [(ngModel)]="name"
               placeholder="(minimum 3 characters)"
               name="name"
-              [(ngModel)]="name"
-              minlength="3"
               required
+              minlength="3"
+              pattern="([a-zA-Z]+\s)+([a-zA-Z]+)"
             />
+            <div
+              *ngIf="
+                myforms['myname']?.invalid &&
+                (myforms['myname']?.dirty || myforms['myname']?.touched)
+              "
+            >
+              <div *ngIf="myforms['myname']?.errors?.['required']">
+                Your Name is required here.
+              </div>
+              <div *ngIf="myforms['myname']?.errors?.['minlength']">
+                Your Name is must be 3 characters or more.
+              </div>
+              <div *ngIf="myforms['myname']?.errors?.['pattern']">
+                You have enter your full name as string with space
+              </div>
+            </div>
           </div>
           <div class="form-group">
             <label for="user_address">Address</label>
@@ -76,9 +100,25 @@
               placeholder="(minimum 6 characters)"
               name="user_address"
               [(ngModel)]="user_address"
-              minlength="6"
               required
+              formControlName="useraddress"
+              minlength="6"
             />
+
+            <div
+              *ngIf="
+                myforms['useraddress']?.invalid &&
+                (myforms['useraddress']?.dirty ||
+                  myforms['useraddress']?.touched)
+              "
+            >
+              <div *ngIf="myforms['useraddress']?.errors?.['required']">
+                Your address is required here.
+              </div>
+              <div *ngIf="myforms['useraddress']?.errors?.['minlength']">
+                Your address is must be 6 characters or more.
+              </div>
+            </div>
           </div>
 
           <div class="form-group">
@@ -88,12 +128,30 @@
               pattern="^\d+(.\d{1,2})?$"
               class="form-control"
               id="credit_number"
-              placeholder="(minimum 16 characters)"
-              minlength="16"
+              placeholder="(minimum 16 digits)"
               name="credit"
-              required
               [(ngModel)]="credit"
+              minlength="16"
+              required
+              formControlName="usercredit"
             />
+            <div
+              *ngIf="
+                myforms['usercredit']?.invalid &&
+                (myforms['usercredit']?.dirty || myforms['usercredit']?.touched)
+              "
+            >
+              <div *ngIf="myforms['usercredit']?.errors?.['required']">
+                Your credit card is required here.
+              </div>
+              <div *ngIf="myforms['usercredit']?.errors?.['minlength']">
+                Your credit card is must be 16 characters or more.
+              </div>
+
+              <div *ngIf="myforms['usercredit']?.errors?.['pattern']">
+                You have to enter digital numbers
+              </div>
+            </div>
             <small id="small-text" class="form-text text-muted"
               >We'll never share your payment details with anyone else.</small
             >

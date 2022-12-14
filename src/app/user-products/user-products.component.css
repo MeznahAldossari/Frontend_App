@@ -51,6 +51,12 @@
 .total {
   margin-left: 5px;
 }
+input.ng-invalid {
+  border-left: 7px solid red;
+}
+input.ng-valid {
+  border-left: 7px solid green;
+}
 
 .div-img {
   margin: auto;
